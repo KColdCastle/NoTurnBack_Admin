@@ -1,0 +1,37 @@
+.table-container {
+  margin: 20px;
+  padding: 15px;
+  border-radius: 15px;
+  background-color: #0b2830da;
+
+  box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.2);
+}
+
+.table {
+  width: 100%;
+  border-radius: 8px;
+  border-collapse: collapse;
+}
+.wdth {
+  background-color: #838c947e;
+}
+/* colSpan={9} style={{ textAlign: 'center' }} */
+
+.table th {
+  padding: 12px 15px;
+  color: rgb(255, 255, 255);
+}
+.table td {
+  text-align: center;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  color: rgb(24, 24, 24);
+  background-color: #ffffffe8;
+}
+
+.table tbody td:hover {
+  background-color: #d8eaff7e;
+}
+.search-input {
+  color: black;
+}
