@@ -1,3 +1,4 @@
+import '../../../components/user/user.css';
 import './globals.css';
 import Login from '../../../components/user/user_login/login';
 import Footer from '../../../components/user/user_footer/footer';

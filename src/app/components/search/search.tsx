@@ -20,7 +20,11 @@ interface IMember {
 // IMember 인터페이스를 받아오는 FC (Functional Component) 생성
 const Member: React.FC<{
   member: IMember; // IMember 인터페이스를 받아오는 member prop
-  onWarningChange: (email: string, newWarning: number) => void; // onWarningIncrease 함수 prop
+  onWarningChange: (
+    email: string,
+    newWarning: number,
+    newState: boolean
+  ) => void; // onWarningIncrease 함수 prop
 }> = ({ member, onWarningChange }) => {
   // member와 onWarningIncrease prop을 파라미터로 받아옴
   // 경고 증가 함수 정의
@@ -37,8 +41,11 @@ const Member: React.FC<{
           `http://127.0.0.1:8080/member/member/${member.email}`
         );
         // onWarningIncrease 함수 호출하여 사용자 인터페이스 업데이트
-        onWarningChange(updatedMember.data.email, updatedMember.data.warning);
-        onWarningChange(updatedMember.data.dmail, updatedMember.data.state);
+        onWarningChange(
+          updatedMember.data.email,
+          updatedMember.data.warning,
+          updatedMember.data.state
+        );
       }
     } catch (error) {
       // 경고 증가 실패시 콘솔에 오류 메시지 출력
@@ -59,8 +66,11 @@ const Member: React.FC<{
           `http://127.0.0.1:8080/member/member/${member.email}`
         );
         // onWarningIncrease 함수 호출하여 사용자 인터페이스 업데이트
-        onWarningChange(updatedMember.data.email, updatedMember.data.warning);
-        onWarningChange(updatedMember.data.dmail, updatedMember.data.state);
+        onWarningChange(
+          updatedMember.data.email,
+          updatedMember.data.warning,
+          updatedMember.data.state
+        );
       }
     } catch (error) {
       // 경고 증가 실패시 콘솔에 오류 메시지 출력
@@ -118,7 +128,7 @@ export default function Search() {
 
   // useFetch로 백엔드에서 멤버 리스트 가져옴
   const fetchedMembers: IMember[] = useFetch(
-    'http://127.0.0.1:8080/member/memberList'
+    'http://127.0.0.1:8080/admin/memberList'
   );
   // 멤버 상태 설정
   const [members, setMembers] = useState<IMember[]>([]);
@@ -129,14 +139,30 @@ export default function Search() {
   }, [fetchedMembers]);
 
   // 경고 수 증가 처리를 위한 핸들러 함수
-  const handleWarningChange = (email: string, newWarning: number) => {
+  const handleWarningChange = (
+    email: string,
+    newWarning: number,
+    newState: boolean
+  ) => {
     // 이메일이 일치하는 멤버의 경고 수를 newWarning으로 업데이트
     setMembers((prevMembers) =>
       prevMembers.map((member) =>
-        member.email === email ? { ...member, warning: newWarning } : member
+        member.email === email
+          ? { ...member, warning: newWarning, state: newState }
+          : member
       )
     );
   };
+
+  // // 경고 수 증가 처리를 위한 핸들러 함수
+  // const handleStateChange = (email: string, newState: boolean) => {
+  //   // 이메일이 일치하는 멤버의 경고 수를 newWarning으로 업데이트
+  //   setMembers((prevMembers) =>
+  //     prevMembers.map((member) =>
+  //       member.email === email ? { ...member, state: newState } : member
+  //     )
+  //   );
+  // };
 
   if (!members) return <span>Loading...</span>;
 

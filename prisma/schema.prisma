@@ -1,67 +1,80 @@
 generator client {
-  provider = "prisma-client-js"   // Prisma Client JS를 사용하도록 설정
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mongodb"            // MongoDB 데이터베이스를 사용하도록 설정
-  url      = env("DATABASE_URL")  // 환경변수를 통해 데이터베이스 연결 URL 설정
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
 }
 
-model Profile{
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId   // 고유한 ID 필드. MongoDB의 ObjectId 타입
-  bio      Gender                                                  // 사용자의 성별 정보. Gender enum을 사용
-  post     Post[]                                                  // Post 모델과의 1:N 관계. 사용자는 여러 개의 게시글을 가질 수 있음
-  email    String    @unique                                       // 사용자의 이메일. 고유해야 함
-  nickname String                                                  // 사용자의 닉네임
-  signAt   DateTime  @default(now())                                // 사용자의 가입 날짜. 기본값으로 현재 날짜/시간
-  updateAt DateTime  @updatedAt                                     // 마지막으로 업데이트된 날짜/시간
+model Profile {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  // @default(auto())를 사용하여 이 필드가 자동으로 증가되는 값임을 나타내며, @map("_id")를 사용하여 데이터베이스 내부에서 _id 필드로 매핑되도록 지정(DB내에서 id필드는 자동생성)
+  // @db.ObjectId를 사용하여 MongoDB에서 ObjectID로 저장되어야 함을 지정
+  bio      Gender
+  post     Post[] // Post[] 타입으로 정의. 이 필드는 Profile과 Post 모델 간의 일대다(1:N) 관계
+  email    String   @unique
+  nickname String
+  signAt   DateTime @default(now()) // @default(now())로 현재 시간을 기본값으로 설정
+  updateAt DateTime @updatedAt // @updatedAt로 업데이트된 시간을 자동으로 기록
 }
 
 model Post {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId   // 고유한 ID 필드. MongoDB의 ObjectId 타입
-  user           Profile   @relation(fields: [email], references: [email])  // Profile 모델과의 N:1 관계. 각 게시글은 하나의 사용자에 속함
-  email          String                                                  // 게시글 작성자의 이메일
-  title          String                                                  // 게시글 제목
-  content        String                                                  // 게시글 내용
-  comments       Comment[]                                               // Comment 모델과의 1:N 관계. 게시글은 여러 댓글을 가질 수 있음
-  starting_price BigInt                                                  // 게시글 시작 가격
-  current_price  BigInt                                                  // 게시글 현재 가격
-  category_type  String                                                  // 게시글의 카테고리 타입
-  publicInfo     PublicInfo @default(PUBLIC)                             // 게시글의 공개 상태. PublicInfo enum을 사용
-  create_date    DateTime   @default(now())                               // 게시글 작성 날짜. 기본값으로 현재 날짜/시간
-  update_date    DateTime   @updatedAt                                     // 게시글의 마지막 업데이트 날짜/시간
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  user           Profile   @relation(fields: [email], references: [email])
+  email          String
+  title          String
+  content        String
+  comments       Comment[] // Comment 모델의 배열 형태로, 해당 게시물과 연결된 댓글
+  starting_price BigInt
+  // current_price  BigInt
+  category       Category  @default(etc)
+  categoryname   String
+  // publicInfo     PublicInfo @default(PUBLIC) // 기본값으로 PUBLIC를 설정한다
+  create_date    DateTime  @default(now())
+  update_date    DateTime  @updatedAt
 }
 
 model Comment {
-  cid         String    @id @default(auto()) @map("_id") @db.ObjectId   // 고유한 ID 필드. MongoDB의 ObjectId 타입
-  post        Post      @relation(fields: [id],references: [id])         // Post 모델과의 N:1 관계. 각 댓글은 하나의 게시글에 속함
-  id          String    @db.ObjectId                                     // 댓글을 단 사용자의 ID
-  email       String                                                  // 댓글을 단 사용자의 이메일
-  publicInfo  PublicInfo @default(PUBLIC)                              // 댓글의 공개 상태. PublicInfo enum을 사용
-  createAt    DateTime   @default(now())                                // 댓글 작성 날짜. 기본값으로 현재 날짜/시간
-  update_date DateTime   @updatedAt                                      // 댓글의 마지막 업데이트 날짜/시간
+  cid         String     @id @default(auto()) @map("_id") @db.ObjectId
+  post        Post       @relation(fields: [id], references: [id])
+  id          String     @db.ObjectId
+  email       String
+  publicInfo  PublicInfo @default(PUBLIC)
+  createAt    DateTime   @default(now())
+  update_date DateTime   @updatedAt
 }
 
-model Category{
-  id           String   // 고유한 ID 필드. MongoDB의 ObjectId 타입
-  category_type String   // 카테고리의 타입
-  category_tag  String   // 카테고리의 태그
+enum Category {
+  beauty
+  hobby
+  digital
+  sport
+  car
+  etc
 }
 
+//유저 상태를 나타냄
 enum Role {
-  USER   // 사용자 역할
-  ADMIN  // 관리자 역할
+  USER
+  ADMIN
+  BAN
 }
 
+//경매 POST에 대한 상태를 나타냄
 enum PublicInfo {
-  PUBLIC   // 공개 상태
-  CLOSED   // 비공개 상태
-  DELETE   // 삭제 상태
-  BLOCKED  // 차단 상태
+  PUBLIC
+  CLOSED
+  DELETE
+  BLOCKED
 }
 
 enum Gender {
-  FEMALE  // 여성
-  MALE    // 남성
-  TRANS   // 트랜스젠더
+  FEMALE
+  MALE
+  TRANS
 }
+
+// npx prisma generate
+// npx prisma db push

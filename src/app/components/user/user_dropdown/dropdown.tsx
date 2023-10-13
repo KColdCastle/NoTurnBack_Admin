@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../user.css';
 
 export default function Dropdown({ onSelect }: any) {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -15,21 +14,19 @@ export default function Dropdown({ onSelect }: any) {
     '디지털/가구/가전',
     '스포츠',
     '자동차',
+    '기타',
   ];
 
   return (
     <div className='relative inline-block'>
       <div>
-        <select
-          value={selectedCategory}
-          onChange={(e) => handleCategorySelect(e.target.value)}
-          className='block w-full justify-start gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50'>
-          {/* <option value="">카테고리</option> */}
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
+        <select className='className="block w-full justify-start gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"'>
+          <option>패션/뷰티</option>
+          <option>취미/키덜트</option>
+          <option>디지털/가구/가전</option>
+          <option>스포츠</option>
+          <option>자동차</option>
+          <option>기타</option>
         </select>
       </div>
     </div>

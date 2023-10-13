@@ -1,5 +1,7 @@
 'use client';
 import prisma from '@/db';
+import '../../../components/user/user.css';
+import './globals.css';
 
 import Nav from '../../../components/user/user_nav/nav';
 import MainList from '../../../components/user/user_mainlist/mainList';
