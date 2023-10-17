@@ -1,6 +1,6 @@
 // 필요한 모듈을 import 합니다.
 import { NextResponse, NextRequest } from 'next/server'; // Next.js의 server-side 핸들링을 위한 타입들
-import prisma from '@/db'; // Prisma 클라이언트를 가져옵니다. "@/db"는 프로젝트 내의 Prisma 설정 경로일 것으로 예상됩니다.
+import prisma from '@/lib/db'; // Prisma 클라이언트를 가져옵니다. "@/db"는 프로젝트 내의 Prisma 설정 경로일 것으로 예상됩니다.
 import axios from 'axios'; // HTTP 클라이언트 라이브러리인 axios를 가져옵니다.
 
 // GET 요청 처리 함수입니다.

@@ -12,6 +12,12 @@ export default function Navbar() {
         JINDDOBAY
       </Link>
       <div className='navbar-links'>
+        <Link href='/Page/Report_P' className='navbar-link' legacyBehavior>
+          신고/건의 게시판
+        </Link>
+        <Link href='/Page/Create_P' className='navbar-link' legacyBehavior>
+          신고/건의 작성
+        </Link>
         <Link href='/Page/Login_P' className='navbar-link'>
           로그인
         </Link>

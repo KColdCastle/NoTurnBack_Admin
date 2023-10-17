@@ -2,7 +2,7 @@
 import '../user.css';
 
 import Image from 'next/image';
-import prisma from '@/db';
+import prisma from '@/lib/db';
 import Link from 'next/link';
 import Paging from '../user_paging/paging';
 import { useState } from 'react';

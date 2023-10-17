@@ -14,6 +14,7 @@ model Profile {
   // @db.ObjectId를 사용하여 MongoDB에서 ObjectID로 저장되어야 함을 지정
   bio      Gender
   post     Post[] // Post[] 타입으로 정의. 이 필드는 Profile과 Post 모델 간의 일대다(1:N) 관계
+  report   Report[] 
   email    String   @unique
   nickname String
   signAt   DateTime @default(now()) // @default(now())로 현재 시간을 기본값으로 설정
@@ -28,11 +29,14 @@ model Post {
   content        String
   comments       Comment[] // Comment 모델의 배열 형태로, 해당 게시물과 연결된 댓글
   starting_price BigInt
-  // current_price  BigInt
-  category       Category  @default(etc)
+  // current_price BigInt
+  category       Category
   categoryname   String
-  // publicInfo     PublicInfo @default(PUBLIC) // 기본값으로 PUBLIC를 설정한다
-  create_date    DateTime  @default(now())
+  images         String[]
+  // publicInfo PublicInfo @default(PUBLIC) // 기본값으로 PUBLIC를 설정한다
+  // end_date BigInt
+  // create_date    DateTime
+  // end_date       BigInt
   update_date    DateTime  @updatedAt
 }
 
@@ -40,10 +44,22 @@ model Comment {
   cid         String     @id @default(auto()) @map("_id") @db.ObjectId
   post        Post       @relation(fields: [id], references: [id])
   id          String     @db.ObjectId
-  email       String
+  guestemail  String
+  content     String
   publicInfo  PublicInfo @default(PUBLIC)
   createAt    DateTime   @default(now())
   update_date DateTime   @updatedAt
+}
+
+model Report {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  user        Profile   @relation(fields: [email], references: [email])
+  email       String
+  title       String
+  content     String
+  create_date    DateTime @default(now())
+  answer Boolean @default(false)
+
 }
 
 enum Category {
@@ -55,14 +71,12 @@ enum Category {
   etc
 }
 
-//유저 상태를 나타냄
+
 enum Role {
   USER
   ADMIN
-  BAN
 }
 
-//경매 POST에 대한 상태를 나타냄
 enum PublicInfo {
   PUBLIC
   CLOSED

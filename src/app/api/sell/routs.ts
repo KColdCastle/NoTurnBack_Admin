@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from 'next/server';
-import prisma from '@/db';
+import prisma from '@/lib/db';
 import { Gender } from '@prisma/client';
 
 // const jsonData = await req.json();

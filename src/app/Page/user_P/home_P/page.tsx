@@ -1,5 +1,5 @@
 'use client';
-import prisma from '@/db';
+import prisma from '@/lib/db';
 import '../../../components/user/user.css';
 import './globals.css';
 
