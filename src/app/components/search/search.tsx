@@ -20,12 +20,12 @@ interface IMember {
 // IMember 인터페이스를 받아오는 FC (Functional Component) 생성
 const Member: React.FC<{
   member: IMember; // IMember 인터페이스를 받아오는 member prop
-  onWarningChange: (
+  handleWarningUpdate: (
     email: string,
     newWarning: number,
     newState: boolean
   ) => void; // onWarningIncrease 함수 prop
-}> = ({ member, onWarningChange }) => {
+}> = ({ member, handleWarningUpdate }) => {
   // member와 onWarningIncrease prop을 파라미터로 받아옴
   // 경고 증가 함수 정의
   const increaseWarning = async () => {
@@ -41,7 +41,7 @@ const Member: React.FC<{
           `http://127.0.0.1:8080/member/member/${member.email}`
         );
         // onWarningIncrease 함수 호출하여 사용자 인터페이스 업데이트
-        onWarningChange(
+        handleWarningUpdate(
           updatedMember.data.email,
           updatedMember.data.warning,
           updatedMember.data.state
@@ -66,7 +66,7 @@ const Member: React.FC<{
           `http://127.0.0.1:8080/member/member/${member.email}`
         );
         // onWarningIncrease 함수 호출하여 사용자 인터페이스 업데이트
-        onWarningChange(
+        handleWarningUpdate(
           updatedMember.data.email,
           updatedMember.data.warning,
           updatedMember.data.state
@@ -104,23 +104,32 @@ const Member: React.FC<{
 
 // Search 컴포넌트 정의
 export default function Search() {
-  const [searchName, setSearchName] = useState(''); // Step 1
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSearch();
+    }
+  };
+  const [searchCategory, setSearchCategory] = useState('email');
+  const [searchEmail, setSearchEmail] = useState(''); // Step 1
   const [searchedMembers, setSearchedMembers] = useState<IMember[]>([]); // 새로운 상태 추가
+  const [searchClicked, setSearchClicked] = useState(false);
   // Step 2
   const handleSearch = async (): Promise<void> => {
+    setSearchClicked(true);
     try {
-      if (searchName.trim() === '') {
-        // 검색창이 비어있는 경우
-        setSearchedMembers([]); // searchedMembers를 초기화합니다.
-        return;
-      }
-      const response = await axios.post(
-        'http://127.0.0.1:8080/member/search2',
-        {
-          name: searchName,
-        }
-      );
-      setSearchedMembers(response.data); // searchedMembers 상태 업데이트
+      const searchUrl =
+        searchCategory === 'email'
+          ? 'http://127.0.0.1:8080/member/memberSearchEmail'
+          : 'http://127.0.0.1:8080/member/memberSearchPN';
+
+      const searchData =
+        searchCategory === 'email'
+          ? { email: searchEmail }
+          : { phoneNum: searchEmail }; // 이 부분은 email 상태 변수명을 더 일반적인 이름으로 변경하는 것이 좋겠습니다.
+
+      const response = await axios.post(searchUrl, searchData);
+
+      setSearchedMembers(response.data);
     } catch (error) {
       console.error('Search failed', error);
     }
@@ -144,8 +153,15 @@ export default function Search() {
     newWarning: number,
     newState: boolean
   ) => {
-    // 이메일이 일치하는 멤버의 경고 수를 newWarning으로 업데이트
     setMembers((prevMembers) =>
+      prevMembers.map((member) =>
+        member.email === email
+          ? { ...member, warning: newWarning, state: newState }
+          : member
+      )
+    );
+
+    setSearchedMembers((prevMembers) =>
       prevMembers.map((member) =>
         member.email === email
           ? { ...member, warning: newWarning, state: newState }
@@ -183,17 +199,33 @@ export default function Search() {
               </tr>
               <tr>
                 <th
-                  colSpan={11}
-                  style={{ textAlign: 'center', fontSize: '20px' }}>
+                  colSpan={13}
+                  style={{
+                    textAlign: 'center',
+                  }}>
+                  <select
+                    className='search-input1'
+                    value={searchCategory}
+                    onChange={(e) => setSearchCategory(e.target.value)}>
+                    <option className='search-input1' value='email'>
+                      EMAIL
+                    </option>
+                    <option className='search-input1' value='phoneNum'>
+                      PHON
+                    </option>
+                  </select>
                   <input
                     type='text'
-                    placeholder='Search...'
+                    placeholder={
+                      searchCategory === 'email'
+                        ? 'EMAIL...  ENTER ⏎'
+                        : 'PHON...  ENTER ⏎'
+                    }
                     className='search-input'
-                    value={searchName}
-                    onChange={(e) => setSearchName(e.target.value)}></input>
-                  <button className='search-btn' onClick={handleSearch}>
-                    Search
-                  </button>
+                    value={searchEmail}
+                    onChange={(e) => setSearchEmail(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                  />
                 </th>
               </tr>
               <tr className='wdth'>
@@ -211,17 +243,18 @@ export default function Search() {
               </tr>
             </thead>
             <tbody>
-              {(searchName.trim() === '' ? members : searchedMembers).map(
-                (
-                  member // 조건 렌더링
-                ) => (
-                  <Member
-                    member={member}
-                    key={member.email}
-                    onWarningChange={handleWarningChange}
-                  />
-                )
-              )}
+              {(searchEmail.trim() === '' || !searchClicked
+                ? members
+                : searchedMembers
+              ).map((member) => (
+                <Member
+                  member={member}
+                  key={
+                    searchCategory === 'email' ? member.email : member.phoneNum
+                  }
+                  handleWarningUpdate={handleWarningChange}
+                />
+              ))}
             </tbody>
           </table>
         </div>

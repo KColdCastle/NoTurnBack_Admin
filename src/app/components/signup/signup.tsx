@@ -2,7 +2,6 @@
 
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import useFetch from '../../hooks/useFetch';
 import { usePathname, useRouter } from 'next/navigation';
 import { url } from 'inspector';
 
