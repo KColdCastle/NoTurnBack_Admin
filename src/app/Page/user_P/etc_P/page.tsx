@@ -1,13 +1,13 @@
 import '../../../components/user/user.css';
 import './globals.css';
-import Beauty from '../../../components/user/beauty/beauty';
+import Etc from '../../../components/user/etc/etc';
 
-export default function Beauty_P() {
+export default function Etc_P() {
   return (
     <div className='container1'>
       <div className='main-content'>
         <div className='center-content'>
-          <Beauty />
+          <Etc />
         </div>
       </div>
     </div>

@@ -1,26 +1,41 @@
-/* Navbar Styles */
-.navbar {
-  background-color: #1a1a1a;
-  color: white;
-  padding: 20px;
+.navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  z-index: 101; /* 높은 z-index 값으로 설정 */
+  padding: 15px 30px;
+  background-color: #333;
 }
 
-.navbar h1 {
+.navbar-title {
+  color: #fff;
   font-size: 24px;
-  font-weight: bold;
-}
-
-.navbar a {
-  margin-left: 20px;
-  color: white;
   text-decoration: none;
-  transition: color 0.2s;
 }
 
-.navbar a:hover {
-  color: #888;
+.navbar-menu {
+  display: flex;
+  gap: 20px; /* 링크 간의 간격 설정 */
+}
+
+.menu-item {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease; /* 호버 효과를 위한 transition 추가 */
+}
+
+.menu-item:hover {
+  color: #923b13; /* 호버 시 글자색 변경 */
+}
+.navbar-title:hover {
+  color: #923b13; /* 호버 시 글자색 변경 */
+}
+.logout-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 20px; /* 로그아웃 버튼과 이전 링크와의 간격 설정 */
+}
+
+.logout-btn:focus {
+  outline: none;
 }

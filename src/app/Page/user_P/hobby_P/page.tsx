@@ -1,13 +1,13 @@
 import '../../../components/user/user.css';
 import './globals.css';
-import Beauty from '../../../components/user/beauty/beauty';
+import Hobby from '../../../components/user/hobby/hobby';
 
-export default function Beauty_P() {
+export default function Hobby_P() {
   return (
     <div className='container1'>
       <div className='main-content'>
         <div className='center-content'>
-          <Beauty />
+          <Hobby />
         </div>
       </div>
     </div>

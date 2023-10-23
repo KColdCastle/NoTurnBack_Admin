@@ -1,10 +1,12 @@
 'use client';
 
 import './report.css';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 export default function Report() {
+  const router = useRouter();
+
   type ReportType = {
     id: string;
     title: string;
@@ -30,17 +32,20 @@ export default function Report() {
 
   return (
     <div className='reportContainer'>
-      <h1>신고글 목록2</h1>
-      <ul className='reportList'>
-        {reports.map((rep) => (
-          <li key={rep.id} className='reportItem'>
-            <h2>{rep.title}</h2>
-            <p>{rep.content}</p>
-            <small>작성자: {rep.email}</small>
-            <p>{rep.create_date}</p>
-          </li>
-        ))}
-      </ul>
+      <>
+        <h1>신고글 목록2</h1>
+        <ul className='reportList'>
+          {reports.map((rep) => (
+            <li key={rep.id} className='reportItem'>
+              <h2>{rep.title}</h2>
+              <p>{rep.content}</p>
+              <small>작성자: {rep.email}</small>
+              <p>{rep.create_date}</p>
+            </li>
+          ))}
+        </ul>
+      </>
+      {/* 로그인이 되어 있지 않은 상태일 경우 아무것도 렌더링하지 않음 */}
     </div>
   );
 }

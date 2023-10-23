@@ -1,6 +1,6 @@
 import '../../globals.css';
 import dynamic from 'next/dynamic';
-import State from '../../components/state/state';
+import State from '../../components/state/statetest';
 
 export default function State_P() {
   return (

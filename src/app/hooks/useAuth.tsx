@@ -1,24 +1,41 @@
-import { useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-function useAuth() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const storedLoginState = sessionStorage.getItem('loggedIn') === 'true';
-    setIsLoggedIn(storedLoginState);
-  }, []);
-
-  const login = () => {
-    sessionStorage.setItem('loggedIn', 'true');
-    setIsLoggedIn(true);
-  };
-
-  const logout = () => {
-    sessionStorage.removeItem('loggedIn');
-    setIsLoggedIn(false);
-  };
-
-  return { isLoggedIn, login, logout };
+interface AuthContextProps {
+  isLoggedIn: boolean;
+  login: () => void;
+  logout: () => void;
 }
 
-export default useAuth;
+const AuthContext = createContext<AuthContextProps | undefined>(undefined);
+
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+export const AuthProvider = ({
+  children,
+}: AuthProviderProps): React.ReactElement => {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(
+    !!localStorage.getItem('token')
+  );
+
+  const login = () => setIsLoggedIn(true);
+  const logout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('token');
+  };
+
+  return (
+    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};

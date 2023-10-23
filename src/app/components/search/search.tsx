@@ -4,14 +4,15 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import useFetch from '../../hooks/useFetch';
 import './search.css';
+import useMongoNickname from '../../hooks/mongoNickname';
 
 interface IMember {
   state: boolean;
   createDate: string;
   passwordChangeDate: string;
   email: string;
-  name: string;
   password: string;
+  nickname: string;
   phoneNum: string;
   address: string;
   warning: number;
@@ -26,6 +27,12 @@ const Member: React.FC<{
     newState: boolean
   ) => void; // onWarningIncrease 함수 prop
 }> = ({ member, handleWarningUpdate }) => {
+  const {
+    nickname: mongoNickname,
+    loading,
+    error,
+  } = useMongoNickname(member.email);
+
   // member와 onWarningIncrease prop을 파라미터로 받아옴
   // 경고 증가 함수 정의
   const increaseWarning = async () => {
@@ -34,6 +41,7 @@ const Member: React.FC<{
       const response = await axios.put(
         `http://127.0.0.1:8080/member/increaseWarning/${member.email}`
       );
+
       // 요청이 성공적으로 이루어졌다면
       if (response.status === 200) {
         // 업데이트된 멤버 정보를 백엔드에서 가져옴
@@ -78,18 +86,35 @@ const Member: React.FC<{
     }
   };
 
+  function getWarningClass(warningCount: any) {
+    switch (warningCount) {
+      case 0:
+        return 'warningZero';
+      case 1:
+        return 'warningOne';
+      case 2:
+        return 'warningTwo';
+      case 3:
+        return 'warningThree';
+      default:
+        return '';
+    }
+  }
+
   // 테이블 로우를 렌더링하는 JSX 리턴
   return (
     <tr>
-      <td>{member.state ? '악성' : '정상'}</td>
+      <td className={member.state ? 'statusNormal' : 'statusSuspended'}>
+        {member.state ? '정상' : '정지'}
+      </td>
       <td>{member.createDate}</td>
       <td>{member.passwordChangeDate}</td>
       <td>{member.email}</td>
-      <td>{member.name}</td>
+      <td>{loading ? 'Loading...' : mongoNickname}</td>
       <td>{member.password}</td>
       <td>{member.phoneNum}</td>
       <td>{member.address}</td>
-      <td>{member.warning}</td>
+      <td className={getWarningClass(member.warning)}>{member.warning}</td>
       <td>
         <button onClick={increaseWarning}>경고 증가</button>{' '}
         {/* 버튼 클릭 시 increaseWarning 함수 호출 */}
@@ -109,6 +134,7 @@ export default function Search() {
       handleSearch();
     }
   };
+
   const [searchCategory, setSearchCategory] = useState('email');
   const [searchEmail, setSearchEmail] = useState(''); // Step 1
   const [searchedMembers, setSearchedMembers] = useState<IMember[]>([]); // 새로운 상태 추가
@@ -136,16 +162,38 @@ export default function Search() {
   };
 
   // useFetch로 백엔드에서 멤버 리스트 가져옴
-  const fetchedMembers: IMember[] = useFetch(
-    'http://127.0.0.1:8080/admin/memberList'
-  );
-  // 멤버 상태 설정
   const [members, setMembers] = useState<IMember[]>([]);
 
-  // 가져온 멤버를 상태에 설정하는 useEffect 훅
   useEffect(() => {
-    setMembers(fetchedMembers);
-  }, [fetchedMembers]);
+    async function fetchProfileAndCombine() {
+      try {
+        const responseProfile = await fetch(`/api/profileList`);
+        const dataProfile = await responseProfile.json();
+
+        const responseMembers = await fetch(
+          'http://127.0.0.1:8080/admin/memberList'
+        );
+        const dataMembers = await responseMembers.json();
+
+        const combinedData = dataMembers.map((member: IMember) => {
+          const matchingProfile = dataProfile.find(
+            (profile: any) => profile.email === member.email
+          );
+          return {
+            ...member,
+            nickname: matchingProfile ? matchingProfile.nickname : null,
+          };
+        });
+        console.log('데이터:', combinedData);
+
+        setMembers(combinedData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+
+    fetchProfileAndCombine();
+  }, []);
 
   // 경고 수 증가 처리를 위한 핸들러 함수
   const handleWarningChange = (
@@ -211,7 +259,7 @@ export default function Search() {
                       EMAIL
                     </option>
                     <option className='search-input1' value='phoneNum'>
-                      PHON
+                      PHONE
                     </option>
                   </select>
                   <input
@@ -219,11 +267,14 @@ export default function Search() {
                     placeholder={
                       searchCategory === 'email'
                         ? 'EMAIL...  ENTER ⏎'
-                        : 'PHON...  ENTER ⏎'
+                        : 'PHONE...  ENTER ⏎'
                     }
                     className='search-input'
                     value={searchEmail}
-                    onChange={(e) => setSearchEmail(e.target.value)}
+                    onChange={(e) => {
+                      setSearchEmail(e.target.value);
+                      setSearchClicked(false);
+                    }}
                     onKeyDown={handleKeyDown}
                   />
                 </th>

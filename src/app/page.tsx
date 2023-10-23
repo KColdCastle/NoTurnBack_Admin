@@ -1,10 +1,9 @@
-import './globals.css';
-import UserLayout from './components/user/user_layout/layout';
+import Search from './components/search/search';
 
 export default function main() {
   return (
     <div className='main'>
-      <UserLayout />
+      <Search />
     </div>
   );
 }

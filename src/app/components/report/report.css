@@ -1,9 +1,12 @@
+/* 기존의 .table-container 스타일을 참고하여 색상 및 효과를 적용 */
 .reportContainer {
   width: 70%;
-  margin: 0 auto;
+  margin: 2rem auto;
   padding: 2rem;
-  background-color: #f7f7f7;
-  border-radius: 5px;
+  background-color: #0b2830da;
+  border-radius: 15px;
+  box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.2);
+  color: #f7f7f7;
 }
 
 .reportList {
@@ -13,19 +16,43 @@
 
 .reportItem {
   padding: 1rem;
-  border-bottom: 1px solid #ddd;
+  margin-bottom: 1rem;
+  background-color: #ffffffe8;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s; /* 애니메이션 효과 추가 */
+}
+
+.reportItem:hover {
+  transform: translateY(-5px); /* 호버 시 위로 움직이는 효과 */
 }
 
 .reportItem:last-child {
   border-bottom: none;
+  margin-bottom: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #f7f7f7;
 }
 
 h2 {
+  font-size: 1.5rem;
   color: #333;
+  margin-top: 0;
+}
+
+p {
+  color: #666;
+  line-height: 1.5;
+  font-size: 1rem;
 }
 
 small {
   display: block;
   margin-top: 0.5rem;
-  color: #666;
+  font-size: 0.9rem;
+  color: #999;
 }

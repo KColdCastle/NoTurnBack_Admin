@@ -1,5 +1,5 @@
 import '../../globals.css';
-import Login from '../../components/login/login';
+import Login from '../../components/login/logintest2';
 
 export default function Login_P() {
   return (
