@@ -48,21 +48,6 @@ export default function sidebar() {
           <li>
             <a href='/Page/user_P/beauty_P'>카테고리</a>
             <ul>
-              {/* <li>
-                <a href='/Page/user_P/beauty_P'>패션/뷰티</a>
-              </li>
-              <li>
-                <a href='/Page/user_P/car_P'>취미/키덜트</a>
-              </li>
-              <li>
-                <a href='/Page/user_P/digital_P'>디지털/가전/가구</a>
-              </li>
-              <li>
-                <a href='/Page/user_P/etc_P'>스포츠</a>
-              </li>
-              <li>
-                <a href='/Page/user_P/sport_P'>자동차</a>
-              </li> */}
               <Disclosure as='nav' className='bg-white mb-10'>
                 <div className=''>
                   <div className='flex justify-center items-center'>
@@ -88,7 +73,6 @@ export default function sidebar() {
               </Disclosure>
             </ul>
           </li>
-          <li></li>
           <li>
             <a href='#'>게시판</a>
             <ul>

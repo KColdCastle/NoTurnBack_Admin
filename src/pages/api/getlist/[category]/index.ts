@@ -1,11 +1,30 @@
-import { NextResponse, NextRequest } from 'next/server';
+import { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '../../../../lib/db';
 import { Category } from '@prisma/client';
 
-export async function GET(req: NextRequest, context: { params: any }) {
-  let category = context.params.category;
-  console.log('category', category);
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  switch (req.method) {
+    case 'GET':
+      return await handleGET(req, res);
+    case 'POST':
+      return await handlePOST(req, res);
+    case 'PUT':
+      return await handlePUT(req, res);
+    case 'DELETE':
+      return await handleDELETE(req, res);
+    default:
+      res.status(405).end(); // Method Not Allowed
+      break;
+  }
+}
+
+async function handleGET(req: NextApiRequest, res: NextApiResponse) {
+  let category = req.query.category as string;
   let selectedCategory;
+
   if (category === 'beauty') {
     selectedCategory = Category.beauty;
   } else if (category === 'hobby') {
@@ -27,17 +46,20 @@ export async function GET(req: NextRequest, context: { params: any }) {
         create_date: 'desc',
       },
     });
-    return NextResponse.json(result);
+    res.status(200).json(result);
   } catch (err) {
-    return NextResponse.json({ status: 500 });
+    res.status(500).json({ status: 500 });
   }
 }
-export async function POST(req: NextRequest) {
-  return new Response('OK');
+
+async function handlePOST(req: NextApiRequest, res: NextApiResponse) {
+  res.status(200).send('OK');
 }
-export async function PUT() {
-  return null;
+
+async function handlePUT(req: NextApiRequest, res: NextApiResponse) {
+  res.status(501).send('Not Implemented'); // 501 Not Implemented 혹은 다른 적절한 응답
 }
-export async function DELETE() {
-  return null;
+
+async function handleDELETE(req: NextApiRequest, res: NextApiResponse) {
+  res.status(501).send('Not Implemented'); // 501 Not Implemented 혹은 다른 적절한 응답
 }
