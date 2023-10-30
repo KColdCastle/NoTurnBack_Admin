@@ -1,5 +1,6 @@
 import '../../../components/user/user.css';
-import './globals.css';
+import '../../../globals.css';
+
 import Sport from '../../../components/user/sport/sport';
 
 export default function Sport_P() {

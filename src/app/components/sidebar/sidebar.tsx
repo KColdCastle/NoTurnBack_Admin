@@ -1,6 +1,18 @@
+'use client';
+
 import './sidebar.css';
 import React from 'react';
 import Link from 'next/link';
+import { Disclosure } from '@headlessui/react';
+
+const navigation = [
+  { name: '패션/뷰티', href: '/Page/user_P/beauty', current: true },
+  { name: '취미/키덜트', href: '/Page/user_P/hobby', current: false },
+  { name: '디지털/가구/가전', href: '/Page/user_P/digital', current: false },
+  { name: '스포츠', href: '/Page/user_P/sport', current: false },
+  { name: '자동차', href: '/Page/user_P/car', current: false },
+  { name: '기타', href: '/Page/user_P/etc', current: false },
+];
 
 export default function sidebar() {
   return (
@@ -34,23 +46,46 @@ export default function sidebar() {
             </ul>
           </li>
           <li>
-            <a href='#'>카테고리</a>
+            <a href='/Page/user_P/beauty_P'>카테고리</a>
             <ul>
-              <li>
-                <a href='#'>패션/뷰티</a>
+              {/* <li>
+                <a href='/Page/user_P/beauty_P'>패션/뷰티</a>
               </li>
               <li>
-                <a href='#'>취미/키덜트</a>
+                <a href='/Page/user_P/car_P'>취미/키덜트</a>
               </li>
               <li>
-                <a href='#'>디지털/가전/가구</a>
+                <a href='/Page/user_P/digital_P'>디지털/가전/가구</a>
               </li>
               <li>
-                <a href='#'>스포츠</a>
+                <a href='/Page/user_P/etc_P'>스포츠</a>
               </li>
               <li>
-                <a href='#'>자동차</a>
-              </li>
+                <a href='/Page/user_P/sport_P'>자동차</a>
+              </li> */}
+              <Disclosure as='nav' className='bg-white mb-10'>
+                <div className=''>
+                  <div className='flex justify-center items-center'>
+                    <div className='flex-item'>
+                      <div className='link-container space-x-6'>
+                        {navigation.map((item) => (
+                          <a
+                            key={item.name}
+                            href={item.href}
+                            className={`nav-link ${
+                              item.current ? 'current' : ''
+                            } flex-auto text-black font-bold `}
+                            aria-current={item.current ? 'page' : undefined}>
+                            {item.name}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className=''></div>
+                </div>
+              </Disclosure>
             </ul>
           </li>
           <li></li>

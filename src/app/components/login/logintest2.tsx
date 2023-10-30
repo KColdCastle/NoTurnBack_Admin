@@ -11,7 +11,6 @@ import React, {
 import { Switch } from '@headlessui/react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import { useCookie } from '../../hooks/useCookie';
 
 export default function Login() {
   const [adminId, setAdminId] = useState('');
@@ -21,7 +20,6 @@ export default function Login() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const adminIdRef = useRef(null);
   const router = useRouter();
-  const { setCookie, getCookie, removeCookie } = useCookie('adminAuthToken');
 
   useEffect(() => {
     const savedAdminId = window.localStorage.getItem('adminId');
@@ -42,8 +40,11 @@ export default function Login() {
         adminPassword,
       });
       console.log('로그인 데이터 전송:', { adminId, adminPassword });
-      const { employeeName } = response.data; // Assuming the returned data has a name field for the employee name
+      const { employeeName, accessToken, refreshToken } = response.data;
       console.log('서버에서 받아온 사원 이름:', employeeName);
+
+      window.localStorage.setItem('accessToken', accessToken); // 추가된 코드
+      window.localStorage.setItem('refreshToken', refreshToken); // 추가된 코드
 
       setEmployeeName(employeeName);
       setIsModalOpen(true);

@@ -1,5 +1,6 @@
 import '../../../components/user/user.css';
-import './globals.css';
+import '../../../globals.css';
+
 import Hobby from '../../../components/user/hobby/hobby';
 
 export default function Hobby_P() {

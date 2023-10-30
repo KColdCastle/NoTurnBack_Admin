@@ -1,5 +1,6 @@
 import '../../../components/user/user.css';
-import './globals.css';
+import '../../../globals.css';
+
 import Digital from '../../../components/user/digital/digital';
 
 export default function Digital_P() {

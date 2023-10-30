@@ -1,5 +1,6 @@
 import '../../../components/user/user.css';
-import './globals.css';
+import '../../../globals.css';
+
 import Car from '../../../components/user/car/car';
 
 export default function Car_P() {

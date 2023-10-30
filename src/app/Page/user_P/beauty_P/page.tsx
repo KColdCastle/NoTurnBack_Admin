@@ -1,5 +1,5 @@
 import '../../../components/user/user.css';
-import './globals.css';
+import '../../../globals.css';
 import Beauty from '../../../components/user/beauty/beauty';
 
 export default function Beauty_P() {

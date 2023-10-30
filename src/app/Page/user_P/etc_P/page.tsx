@@ -1,5 +1,6 @@
 import '../../../components/user/user.css';
-import './globals.css';
+import '../../../globals.css';
+
 import Etc from '../../../components/user/etc/etc';
 
 export default function Etc_P() {

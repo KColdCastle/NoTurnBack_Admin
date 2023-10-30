@@ -14,7 +14,7 @@ model Profile {
   // @db.ObjectId를 사용하여 MongoDB에서 ObjectID로 저장되어야 함을 지정
   bio      Gender
   post     Post[] // Post[] 타입으로 정의. 이 필드는 Profile과 Post 모델 간의 일대다(1:N) 관계
-  report   Report[] 
+  report   Report[]
   email    String   @unique
   nickname String
   signAt   DateTime @default(now()) // @default(now())로 현재 시간을 기본값으로 설정
@@ -27,28 +27,15 @@ model Post {
   email          String
   title          String
   content        String
-  comments       Comment[] // Comment 모델의 배열 형태로, 해당 게시물과 연결된 댓글
-  starting_price BigInt
-  // current_price BigInt
+  starting_price Int
   category       Category
   categoryname   String
   images         String[]
-  // publicInfo PublicInfo @default(PUBLIC) // 기본값으로 PUBLIC를 설정한다
-  // end_date BigInt
-  // create_date    DateTime
-  // end_date       BigInt
-  update_date    DateTime  @updatedAt
-}
-
-model Comment {
-  cid         String     @id @default(auto()) @map("_id") @db.ObjectId
-  post        Post       @relation(fields: [id], references: [id])
-  id          String     @db.ObjectId
-  guestemail  String
-  content     String
-  publicInfo  PublicInfo @default(PUBLIC)
-  createAt    DateTime   @default(now())
-  update_date DateTime   @updatedAt
+  publicInfo PublicInfo @default(PUBLIC) // 기본값으로 PUBLIC를 설정한다
+  create_date DateTime @default(now())
+  update_date DateTime @updatedAt
+  // create_date DateTime 
+  endDate Int
 }
 
 model Report {
@@ -59,7 +46,21 @@ model Report {
   content     String
   create_date    DateTime @default(now())
   answer Boolean @default(false)
+}
 
+model Message {
+  id String @id @default(auto()) @map("_id") @db.ObjectId  
+  postid      String
+  sender      String 
+  receiver    String
+  title       String
+  content     String
+  create_date DateTime @default(now())
+}
+
+model Image {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  postId String
 }
 
 enum Category {
@@ -70,7 +71,6 @@ enum Category {
   car
   etc
 }
-
 
 enum Role {
   USER
