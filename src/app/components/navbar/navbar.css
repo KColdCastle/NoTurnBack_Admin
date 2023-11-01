@@ -1,41 +1,50 @@
 .navbar-container {
+  position: relative;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column; /* 세로 방향으로 배치 */
+  align-items: center; /* 가운데 정렬 */
   padding: 15px 30px;
-  background-color: #333;
+  background-color: #16191bdc;
+  box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.2);
 }
 
 .navbar-title {
-  color: #fff;
+  color: rgb(226, 226, 226);
   font-size: 24px;
   text-decoration: none;
+  font-weight: 500;
+  padding: 5px 15px;
+  border-radius: 5px;
+  margin-bottom: 10px; /* 아래로 마진 추가 */
 }
 
 .navbar-menu {
   display: flex;
-  gap: 20px; /* 링크 간의 간격 설정 */
+  gap: 20px;
+  justify-content: center; /* 메뉴 아이템들을 가운데 정렬 */
 }
 
-.menu-item {
+.menu-item,
+.logout-btn {
   color: #fff;
   text-decoration: none;
-  transition: color 0.3s ease; /* 호버 효과를 위한 transition 추가 */
+  transition: color 0.3s ease, background 0.3s ease; /* 배경에 대한 전환 추가 */
+  padding: 5px 15px; /* 패딩 추가 */
+  border-radius: 5px; /* 둥근 모서리 */
+}
+.navbar-title:hover,
+.menu-item:hover,
+.logout-btn:hover {
+  box-shadow: 0px 0px 15px 3px rgb(12, 141, 201); /* 포커스 시 금색의 투명한 테두리 */
 }
 
-.menu-item:hover {
-  color: #923b13; /* 호버 시 글자색 변경 */
-}
-.navbar-title:hover {
-  color: #923b13; /* 호버 시 글자색 변경 */
-}
 .logout-btn {
   background: none;
   border: none;
   cursor: pointer;
-  margin-left: 20px; /* 로그아웃 버튼과 이전 링크와의 간격 설정 */
 }
-
+.navbar-title:focus,
+.menu-item:focus,
 .logout-btn:focus {
   outline: none;
 }

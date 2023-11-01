@@ -10,7 +10,6 @@ interface IMember {
   createDate: string;
   passwordChangeDate: string;
   email: string;
-  password: string;
   nickname: string;
   phoneNum: string;
   address: string;
@@ -29,7 +28,6 @@ const Member: React.FC<{ member: IMember }> = ({ member }) => {
       <td>{member.passwordChangeDate}</td>
       <td>{member.email}</td>
       <td>{loading ? 'Loading...' : mongoNickname}</td>
-      <td>{member.password}</td>
       <td>{member.phoneNum}</td>
       <td>{member.address}</td>
       <td>{member.warning}</td>
@@ -136,7 +134,6 @@ export default function Search() {
                 <th>패스워드변경일</th>
                 <th>이메일</th>
                 <th>이름</th>
-                <th>패스워드</th>
                 <th>핸드폰번호</th>
                 <th>주소</th>
                 <th>경고</th>

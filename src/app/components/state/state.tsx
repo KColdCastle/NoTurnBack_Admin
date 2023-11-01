@@ -24,7 +24,6 @@ const Member: React.FC<{ member: IMemberstate }> = ({ member }) => {
     loading,
     error,
   } = useMongoNickname(member.email);
-  console.log('매매맴버버버버:', Member);
   return (
     <tr>
       <td className={member.state ? 'statusNormal' : 'statusSuspended'}>
@@ -41,7 +40,6 @@ const Member: React.FC<{ member: IMemberstate }> = ({ member }) => {
     </tr>
   );
 };
-console.log('매매맴버버버버:', Member);
 
 // Search 컴포넌트 정의
 export default function Search() {

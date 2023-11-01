@@ -26,3 +26,49 @@
   left: 0;
   height: 100vh;
 }
+
+.preview-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 이 부분에서 각 열의 너비를 정의. 1fr은 사용 가능한 공간을 동등하게 나눈다는 의미입니다. */
+  gap: 20px; /* 그리드 아이템들 사이의 간격 */
+}
+.preview-wrapper {
+  padding: 0 10px;
+}
+.preview {
+  border: 10px solid #6e54564d;
+  padding: 10px;
+  margin: 20px;
+  display: flex; /* flex로 변경하여 내부 요소를 중앙에 놓을 수 있도록 함 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  width: 500px;
+  height: 350px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s, transform 0.3s;
+  border-radius: 5px; /* 둥근 모서리 */
+}
+
+.preview:hover {
+  box-shadow: 0px 0px 15px 5px rgb(12, 141, 201); /* 포커스 시 금색의 투명한 테두리 */
+
+  transform: scale(1.05);
+}
+
+.preview-title {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  color: #333;
+  font-weight: 600;
+  font-size: 25px;
+}
+
+.scaled-content {
+  transform: scale(0.38);
+  transform-origin: center;
+  width: 1000px;
+  height: 1000px;
+}

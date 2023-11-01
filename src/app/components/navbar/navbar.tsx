@@ -1,41 +1,29 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import { useAuth, AuthProvider } from '../../hooks/useAuth';
 import Link from 'next/link';
 import axios from 'axios';
 import './Navbar.css';
 
-export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const Navbar: React.FC = () => {
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
 
-  useEffect(() => {
-    const token = window.localStorage.getItem('token');
-    if (token) {
-      setIsLoggedIn(true);
-    }
-  }, []);
-
-  const handleLogout = async () => {
+  // 로그아웃 함수
+  async function logout() {
     try {
-      await axios.post('http://127.0.0.1:8080/logout', {
-        adminId: 'yourAdminIdHere',
-      }); // NOTE: You will need to get the correct adminId.
-      window.localStorage.removeItem('token');
+      await axios.post(
+        'http://127.0.0.1:8080/admin/logout',
+        {},
+        {
+          withCredentials: true,
+        }
+      );
       setIsLoggedIn(false);
+      localStorage.removeItem('isLoggedIn');
     } catch (error) {
-      console.log('Logout error:', error);
+      console.log('로그아웃 에러:', error);
     }
-  };
-
-  const refreshToken = async () => {
-    const response = await axios.post(
-      'http://127.0.0.1:8080/admin/token/refresh',
-      {
-        refreshToken: 'yourRefreshTokenHere',
-      }
-    );
-    const newToken = response.data.token;
-    window.localStorage.setItem('token', newToken);
-  };
+  }
 
   return (
     <div className='navbar-container'>
@@ -47,15 +35,11 @@ export default function Navbar() {
         <Link href='/Page/Report_P' className='menu-item'>
           신고/건의 게시판
         </Link>
+
         {isLoggedIn ? (
-          <>
-            <button onClick={refreshToken} className='menu-item'>
-              토큰 갱신
-            </button>
-            <button onClick={handleLogout} className='menu-item'>
-              로그아웃
-            </button>
-          </>
+          <button onClick={logout} className='menu-item'>
+            로그아웃
+          </button>
         ) : (
           <>
             <Link href='/Page/Login_P' className='menu-item'>
@@ -69,4 +53,6 @@ export default function Navbar() {
       </div>
     </div>
   );
-}
+};
+
+export default Navbar;

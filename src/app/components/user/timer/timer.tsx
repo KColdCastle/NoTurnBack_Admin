@@ -36,7 +36,7 @@ export default function Timer({ endDate }: TimeNow) {
 
   return (
     <div>
-      <div>남은 시간 {`${hour}h:${minute}m:${second}s`}</div>
+      <div>남은 시간 : {`${hour}시 ${minute}분 ${second} 초`}</div>
     </div>
   );
 }

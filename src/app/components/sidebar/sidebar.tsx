@@ -1,9 +1,10 @@
 'use client';
 
 import './sidebar.css';
-import React from 'react';
 import Link from 'next/link';
 import { Disclosure } from '@headlessui/react';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../hooks/useAuth';
 
 const navigation = [
   { name: '패션/뷰티', href: '/Page/user_P/beauty', current: true },
@@ -15,6 +16,17 @@ const navigation = [
 ];
 
 export default function sidebar() {
+  const { isLoggedIn } = useAuth();
+
+  const [employeeName, setEmployeeName] = useState('');
+  useEffect(() => {
+    // 클라이언트 사이드에서만 실행됩니다.
+    const savedName = localStorage.getItem('employeeName');
+    if (savedName) {
+      setEmployeeName(savedName);
+    }
+  }, []);
+
   return (
     <div>
       <aside className='side-bar'>
@@ -27,9 +39,12 @@ export default function sidebar() {
         </section>
         <ul>
           <li className='admin'>
-            <a href='#'>
-              <i className='fa-solid fa-cat'></i> 관리자
-            </a>
+            {isLoggedIn ? (
+              <span className='section-title'>{employeeName}</span>
+            ) : (
+              <span className='section-title'>로그인 해라</span>
+            )}
+            {/* 링크를 텍스트로 변경 */}
             <ul>
               <li>
                 <a href='#'>text1</a>
@@ -46,38 +61,26 @@ export default function sidebar() {
             </ul>
           </li>
           <li>
-            <a href='/Page/user_P/beauty_P'>카테고리</a>
+            <span className='section-title'>카테고리</span>{' '}
+            {/* 링크를 텍스트로 변경 */}
             <ul>
-              <Disclosure as='nav' className='bg-white mb-10'>
-                <div className=''>
-                  <div className='flex justify-center items-center'>
-                    <div className='flex-item'>
-                      <div className='link-container space-x-6'>
-                        {navigation.map((item) => (
-                          <a
-                            key={item.name}
-                            href={item.href}
-                            className={`nav-link ${
-                              item.current ? 'current' : ''
-                            } flex-auto text-black font-bold `}
-                            aria-current={item.current ? 'page' : undefined}>
-                            {item.name}
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className=''></div>
-                </div>
-              </Disclosure>
+              {navigation.map((item) => (
+                <li key={item.name}>
+                  <a
+                    href={item.href}
+                    className={`nav-link ${item.current ? 'current' : ''}`}>
+                    {item.name}
+                  </a>
+                </li>
+              ))}
             </ul>
           </li>
           <li>
-            <a href='#'>게시판</a>
+            <span className='section-title'>게시판</span>{' '}
+            {/* 링크를 텍스트로 변경 */}
             <ul>
               <li>
-                <a href='#'>text1</a>
+                <Link href='/Page/Report_P'>신고/건의</Link>
               </li>
               <li>
                 <a href='#'>text2</a>
@@ -91,30 +94,14 @@ export default function sidebar() {
             </ul>
           </li>
           <li>
-            <a href='#'>유저정보</a>
+            <span className='section-title'>유저정보</span>{' '}
+            {/* 링크를 텍스트로 변경 */}
             <ul>
               <li>
                 <Link href='/Page/Search_P'>유저조회</Link>
               </li>
               <li>
                 <Link href='/Page/State_P'>블랙리스트</Link>
-              </li>
-            </ul>
-          </li>
-          <li>
-            <a href='#'>TOP10</a>
-            <ul>
-              <li>
-                <a href='../Page/searchBlack_P'>text1</a>
-              </li>
-              <li>
-                <a href='#'>text2</a>
-              </li>
-              <li>
-                <a href='#'>text3</a>
-              </li>
-              <li>
-                <a href='#'>text4</a>
               </li>
             </ul>
           </li>

@@ -12,6 +12,18 @@ export default async function handler(
     return res.status(400).json({ result: 'Invalid ID' });
   }
 
+  switch (req.method) {
+    case 'GET':
+      return await handleGET(findId, res);
+    case 'DELETE':
+      return await handleDELETE(findId, res);
+    default:
+      res.status(405).end(); // Method Not Allowed
+      break;
+  }
+}
+
+async function handleGET(findId: string, res: NextApiResponse) {
   let temp = [];
   try {
     const detailData = await prisma.post.findUnique({
@@ -46,5 +58,18 @@ export default async function handler(
     return res.status(200).json({ result: temp });
   } catch {
     return res.status(500).json({ result: 'ERROR' });
+  }
+}
+
+async function handleDELETE(findId: string, res: NextApiResponse) {
+  try {
+    const deletePost = await prisma.post.delete({
+      where: {
+        id: findId,
+      },
+    });
+    return res.status(200).json({ result: 'Post successfully deleted' });
+  } catch (error) {
+    return res.status(500).json({ result: 'Error deleting post', error });
   }
 }

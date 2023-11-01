@@ -11,7 +11,6 @@ interface IMember {
   createDate: string;
   passwordChangeDate: string;
   email: string;
-  password: string;
   nickname: string;
   phoneNum: string;
   address: string;
@@ -111,16 +110,15 @@ const Member: React.FC<{
       <td>{member.passwordChangeDate}</td>
       <td>{member.email}</td>
       <td>{loading ? 'Loading...' : mongoNickname}</td>
-      <td>{member.password}</td>
       <td>{member.phoneNum}</td>
       <td>{member.address}</td>
       <td className={getWarningClass(member.warning)}>{member.warning}</td>
       <td>
-        <button onClick={increaseWarning}>경고 증가</button>{' '}
+        <button onClick={increaseWarning}>➕</button>{' '}
         {/* 버튼 클릭 시 increaseWarning 함수 호출 */}
       </td>
       <td>
-        <button onClick={minusWarning}>경고 감소</button>{' '}
+        <button onClick={minusWarning}>➖</button>{' '}
         {/* 버튼 클릭 시 increaseWarning 함수 호출 */}
       </td>
     </tr>
@@ -218,16 +216,6 @@ export default function Search() {
     );
   };
 
-  // // 경고 수 증가 처리를 위한 핸들러 함수
-  // const handleStateChange = (email: string, newState: boolean) => {
-  //   // 이메일이 일치하는 멤버의 경고 수를 newWarning으로 업데이트
-  //   setMembers((prevMembers) =>
-  //     prevMembers.map((member) =>
-  //       member.email === email ? { ...member, state: newState } : member
-  //     )
-  //   );
-  // };
-
   if (!members) return <span>Loading...</span>;
 
   return (
@@ -285,12 +273,11 @@ export default function Search() {
                 <th>패스워드변경일</th>
                 <th>이메일</th>
                 <th>이름</th>
-                <th>패스워드</th>
                 <th>핸드폰번호</th>
                 <th>주소</th>
                 <th>경고</th>
-                <th>업버튼</th>
-                <th>다운버튼</th>
+                <th>경고 증가</th>
+                <th>경고 감소</th>
               </tr>
             </thead>
             <tbody>

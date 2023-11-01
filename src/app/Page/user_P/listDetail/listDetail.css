@@ -1,0 +1,144 @@
+.relative-container {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, #f8fbfe, #e6edf3);
+  padding: 4rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.top-icon {
+  top: 2rem;
+  right: 2rem;
+  position: absolute;
+}
+
+.icon-svg {
+  stroke-width: 1.5;
+  width: 28px;
+  height: 28px;
+  transition: all 0.3s ease-out;
+}
+
+.icon-svg:hover {
+  transform: scale(1.15);
+  stroke-width: 2;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.flex-container-lg {
+  flex-direction: row;
+  gap: 2.5rem;
+}
+
+.lg-content {
+  width: 50%;
+  padding-left: 2rem;
+}
+
+.indigo-text {
+  color: #464faa;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.title-text {
+  margin-top: 10px;
+  color: #1b2532;
+  font-size: 35px;
+  margin-bottom: 30px;
+}
+
+.list-item {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.list-item-icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: #3b44d8;
+}
+
+.font-strong {
+  font-weight: 500;
+  color: #1b2532;
+  font-size: 22px;
+  margin-bottom: 20px;
+  margin-top: 30px;
+}
+
+.center-button-disabled,
+.center-button {
+  width: 500px;
+  border: none;
+  background: #3b44d8;
+  color: #ffffff;
+  padding: 1rem 2.5rem;
+  border-radius: 12px;
+  font-weight: 700;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.center-button-disabled {
+  background: #e6edf3;
+  color: #a8b2be;
+  cursor: not-allowed;
+}
+
+.center-button:hover {
+  background: #2a30c0;
+  transform: translateY(-3px);
+}
+
+.title-large {
+  margin-top: 3.5rem;
+  font-size: 2.6rem;
+}
+
+.flex-min-screen {
+  display: flex;
+  min-height: 100vh;
+  gap: 2rem;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 2.5rem;
+}
+
+.center-text-large {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8fbfe;
+  font-size: 5rem;
+  font-weight: 800;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.delete-button {
+  background-color: #f44336; /* 레드 */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+  background-color: #e53935; /* 조금 더 진한 레드로 hover 효과 */
+}
+
+.delete-button:focus {
+  outline: none; /* 버튼 클릭시 파란색 테두리 제거 */
+}
