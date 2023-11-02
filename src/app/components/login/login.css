@@ -1,3 +1,76 @@
 .bgcustom {
   background-image: url('/img/MainBG.jpg');
 }
+.container1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  background-color: #0000008c;
+  padding: 50px; /* padding 증가 */
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 500px; /* 폭 설정 */
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+button[type='submit'] {
+  width: 100%;
+  padding: 10px;
+  background-color: #1d1a1a;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.modal-bg {
+  position: fixed;
+  top: 500;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  box-shadow: 0px 0px 15px 3px rgb(35, 11, 51); /* 포커스 시 금색의 투명한 테두리 */
+
+  background-color: #221325d3;
+  padding: 40px; /* padding 증가 */
+  border-radius: 5px;
+  width: 400px; /* 폭 설정 */
+  height: 150px;
+  display: flex; /* flexbox 추가 */
+  flex-direction: column; /* 세로 방향 정렬 */
+  justify-content: center; /* 세로 중앙 정렬 */
+  align-items: center;
+}
+.modal-font {
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: 500;
+}
+.modal button {
+  margin-left: 25px;
+  padding: 8px 20px; /* 상하 패딩과 좌우 패딩을 설정 */
+  background-color: #ecc3ff57;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  text-align: center; /* 텍스트를 가로 중앙으로 정렬 */
+  line-height: center; /* 텍스트를 세로 중앙으로 정렬 */
+}

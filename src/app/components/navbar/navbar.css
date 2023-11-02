@@ -4,8 +4,7 @@
   flex-direction: column; /* 세로 방향으로 배치 */
   align-items: center; /* 가운데 정렬 */
   padding: 15px 30px;
-  background-color: #16191bdc;
-  box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.2);
+  background-color: #16191b91;
 }
 
 .navbar-title {

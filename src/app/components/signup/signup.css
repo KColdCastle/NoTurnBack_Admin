@@ -1,0 +1,65 @@
+/* styles.css */
+
+/* 기본 설정 */
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+/* 폼 스타일링 */
+form {
+  background-color: #0000008c;
+  padding: 50px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  margin: 0 auto; /* 가운데 정렬을 위한 스타일 */
+}
+.form-font {
+  color: #ff7b7b;
+  text-align: center;
+  font-size: 16px;
+}
+
+label {
+  display: block;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+p {
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+button[type='button'],
+button[type='submit'] {
+  padding: 10px 15px;
+  width: 100%;
+
+  background-color: #1d1a1a;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  margin-bottom: 20px;
+
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type='button']:hover,
+button[type='submit']:hover {
+  background-color: #3d3a3a;
+}
+
+/* 메시지 스타일링 */
+.message {
+  margin-top: 20px;
+  color: #fff;
+  text-align: center;
+}

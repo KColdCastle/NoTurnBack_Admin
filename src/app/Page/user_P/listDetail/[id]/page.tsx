@@ -6,6 +6,8 @@ import Timer from '../../../../components/user/timer/timer';
 import SendModal from '../../../../components/user/senderModal/senderModal';
 import { useRouter } from 'next/navigation';
 import '../listDetail.css';
+import { useAuth } from '../../../../hooks/useAuth';
+import Login from '../../../../Page/Login_P/page';
 
 export default function Detail({ params }: { params: { id: string } }) {
   const [isModalOpen, setModalOpen] = useState(false);

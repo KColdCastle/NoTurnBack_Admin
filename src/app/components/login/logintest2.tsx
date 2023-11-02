@@ -12,6 +12,7 @@ import { Switch } from '@headlessui/react';
 import { useRouter } from 'next/navigation'; // `next/navigation`이 아니라 `next/router`를 사용해야 합니다.
 import { useAuth } from '../../hooks/useAuth';
 import axios from 'axios';
+import './login.css';
 
 const Login: React.FC = () => {
   const { setIsLoggedIn } = useAuth();
@@ -56,7 +57,6 @@ const Login: React.FC = () => {
       const { employeeName } = response.data;
       setEmployeeName(employeeName);
       setIsModalOpen(true);
-      setIsLoggedIn(true); // 여기서 로그인 성공 함수를 호출합니다.
       localStorage.setItem('isLoggedIn', 'true');
     } catch (error) {
       console.log('로그인 에러:', error);
@@ -65,10 +65,12 @@ const Login: React.FC = () => {
 
   function closeModal() {
     setIsModalOpen(false);
+    setIsLoggedIn(true); // 여기서 로그인 성공 함수를 호출합니다.
+
     router.push('/');
   }
   return (
-    <div>
+    <div className='container1'>
       <form onSubmit={onSubmit}>
         <input
           value={adminId}
@@ -81,15 +83,16 @@ const Login: React.FC = () => {
           onChange={(e) => setAdminPassword(e.target.value)}
           placeholder='Password'
         />
-
         <button type='submit'>로그인</button>
       </form>
 
       {isModalOpen && (
         <div className='modal-bg'>
           <div className='modal'>
-            <p>환영합니다 {employeeName}님!</p>
-            <button onClick={closeModal}>확인</button>
+            <p className='modal-font'>
+              ✨ 관리자 {employeeName} 님! ✨
+              <button onClick={closeModal}>확인</button>
+            </p>
           </div>
         </div>
       )}

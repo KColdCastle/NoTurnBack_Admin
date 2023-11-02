@@ -2,9 +2,8 @@
   margin: 20px;
   padding: 15px;
   border-radius: 15px;
-  background-color: #0b2830da;
-
-  box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.2);
+  background-color: #0b28307a;
+  box-shadow: 0px 0px 15px 3px rgb(3, 116, 110);
 }
 .statusNormal {
   color: rgba(18, 93, 190, 0.836) !important;

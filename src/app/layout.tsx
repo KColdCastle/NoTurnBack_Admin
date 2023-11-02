@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <AuthProvider>
-      <html lang='en'>
+      <html lang='en' className='jinddo-bg'>
         <body className={inter.className}>
           <Navbar />
           <div className='sidebar1'>

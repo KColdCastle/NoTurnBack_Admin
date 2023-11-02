@@ -3,15 +3,27 @@
 @import 'tailwindcss/utilities';
 
 /* Layout Styles */
+.jinddo-bg {
+  background-color: #0c213a;
+  height: 100vh;
+  background-image: url('/img/MainBG6.webp');
+  background-size: 100% 100%; /* 배경 이미지를 항상 요소의 전체 크기로 조절 */
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
 .main-content {
   flex-grow: 1;
   display: flex;
+  background-color: unset;
 }
 .main {
   margin-top: 50px;
+  background-color: unset;
 }
 .center-content {
+  background-color: unset;
+
   flex-grow: 1;
   display: flex;
   justify-content: center;
@@ -36,7 +48,9 @@
   padding: 0 10px;
 }
 .preview {
-  border: 10px solid #6e54564d;
+  background-color: #38383856;
+
+  border: 10px solid #0000009a;
   padding: 10px;
   margin: 20px;
   display: flex; /* flex로 변경하여 내부 요소를 중앙에 놓을 수 있도록 함 */
@@ -46,7 +60,8 @@
   height: 350px;
   overflow: hidden;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 15px 3px rgb(238, 236, 204);
+
   transition: box-shadow 0.3s, transform 0.3s;
   border-radius: 5px; /* 둥근 모서리 */
 }
@@ -61,7 +76,7 @@
   display: block;
   text-align: center;
   margin-top: 10px;
-  color: #333;
+  color: #f7f7f7;
   font-weight: 600;
   font-size: 25px;
 }
