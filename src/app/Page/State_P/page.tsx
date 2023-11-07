@@ -1,7 +1,7 @@
 'use client';
 
 import '../../globals.css';
-import State from '../../components/state/statetest';
+import State from '../../components/state/state';
 import { useAuth } from '../../hooks/useAuth';
 import Login from '../../Page/Login_P/page';
 
