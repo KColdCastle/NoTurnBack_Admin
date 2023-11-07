@@ -4,10 +4,11 @@ import Search from './components/search/search';
 import Report from './components/report/report';
 import State from './components/state/state';
 import Category from './Page/user_P/[...slug]/page';
-import { useAuth } from './hooks/useAuth';
+
 
 import './globals.css';
 import Login from './Page/Login_P/page';
+import { useAuth } from './hooks/useAuth';
 
 export default function main() {
   const { isLoggedIn } = useAuth(); // 로그인 상태 가져오기
