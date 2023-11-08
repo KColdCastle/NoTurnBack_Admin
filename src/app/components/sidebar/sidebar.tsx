@@ -2,9 +2,9 @@
 
 import './sidebar.css';
 import Link from 'next/link';
-import { Disclosure } from '@headlessui/react';
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth';
+import axios from 'axios';
 
 const navigation = [
   { name: '패션/뷰티', href: '/Page/user_P/beauty', current: true },
@@ -17,15 +17,6 @@ const navigation = [
 
 export default function sidebar() {
   const { isLoggedIn } = useAuth();
-
-  const [employeeName, setEmployeeName] = useState('');
-  useEffect(() => {
-    // 클라이언트 사이드에서만 실행됩니다.
-    const savedName = localStorage.getItem('employeeName');
-    if (savedName) {
-      setEmployeeName(savedName);
-    }
-  }, []);
 
   return (
     <div>
@@ -40,7 +31,7 @@ export default function sidebar() {
         <ul>
           <li className='admin'>
             {isLoggedIn ? (
-              <span className='section-title'>{employeeName}</span>
+              <span className='section-title'>1121</span>
             ) : (
               <span className='section-title'>로그인 해라</span>
             )}

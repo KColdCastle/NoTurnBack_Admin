@@ -9,10 +9,10 @@ body {
 form {
   background-color: #0000008c;
   padding: 50px;
-  border-radius: 5px;
+  border-radius: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 500px;
-  margin: 0 auto; /* 가운데 정렬을 위한 스타일 */
+  margin: 0 auto;
 }
 .form-font {
   color: #ff7b7b;
@@ -57,9 +57,9 @@ button[type='submit']:hover {
   background-color: #3d3a3a;
 }
 
-/* 메시지 스타일링 */
 .message {
   margin-top: 20px;
   color: #fff;
   text-align: center;
+  margin-bottom: 20px;
 }

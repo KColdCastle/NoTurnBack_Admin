@@ -11,6 +11,8 @@ import axios from 'axios';
 interface AuthContextType {
   isLoggedIn: boolean;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  employeeName: string;
+  setEmployeeName: React.Dispatch<React.SetStateAction<string>>; // 이름 상태를 업데이트하는 함수 추가
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -21,6 +23,7 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false); // 초기값을 false로 설정
+  const [employeeName, setEmployeeName] = useState<string>(''); // 이름 상태 추가
 
   useEffect(() => {
     // 1. 로그인 상태 초기화
@@ -37,12 +40,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         })
         .then((response) => {
           setIsLoggedIn(response.data.loggedIn);
+
           // 2. 로그인 상태 저장
           if (response.data.loggedIn) {
             localStorage.setItem('isLoggedIn', 'true');
+
+            setEmployeeName(response.data.employeeName); // 서버로부터 받은 사용자 이름을 상태에 저장
           } else {
             // 3. 로그인 상태 삭제
             localStorage.removeItem('isLoggedIn');
+            setEmployeeName(''); // 로그아웃 시 이름 상태를 빈 문자열로 설정
           }
         })
         .catch((error) => {
@@ -54,7 +61,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+    <AuthContext.Provider
+      value={{ isLoggedIn, setIsLoggedIn, employeeName, setEmployeeName }}>
       {children}
     </AuthContext.Provider>
   );
