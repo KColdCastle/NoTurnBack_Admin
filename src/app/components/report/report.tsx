@@ -50,13 +50,19 @@ export default function Report() {
 
   return (
     <div className='reportContainer'>
-      <h1>신고글 목록2</h1>
+      <h1>신고/건의 목록</h1>
       <ul className='reportList'>
         {reports.map((report: ReportType) => (
           <li key={report.id} className='reportItem'>
-            <h2>{report.title}</h2>
-            <p>{report.content}</p>
-            <small>작성자: {report.email}</small>
+            <h2>
+              <span className='maliciousUser'>악성 유저 : </span>{' '}
+              <span className='reportTitle'>{report.title}</span>
+            </h2>
+            <p>
+              <span className='maliciousUser1'>내용 : </span>
+              <span className='reportTitle1'>{report.content}</span>
+            </p>
+            <small className='maliciousUser2'>작성자: {report.email}</small>
             <p>{report.create_date}</p> {/* 변환된 날짜를 여기서 보여줍니다 */}
           </li>
         ))}

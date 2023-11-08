@@ -16,6 +16,26 @@
   list-style-type: none;
   padding: 0;
 }
+.maliciousUser {
+  color: rgb(240, 110, 127);
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.maliciousUser1 {
+  color: rgb(41, 175, 157);
+  font-size: 23px;
+}
+
+.reportTitle {
+  color: rgb(58, 51, 42);
+  font-size: 21px;
+}
+
+.reportTitle1 {
+  color: black;
+  font-size: 19px;
+}
 
 .reportItem {
   padding: 1rem;
